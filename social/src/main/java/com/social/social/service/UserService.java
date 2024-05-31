@@ -40,4 +40,13 @@ public class UserService {
                         .build())
                 .build();
     }
+
+    public void addToFriend(String uuid, String selfUuid) {
+        User self = userManager.getUserByUuid(UUID.fromString(selfUuid)).orElseThrow();
+        User friend = userManager.getUserByUuid(UUID.fromString(uuid)).orElseThrow();
+        self.getFriends().add(friend);
+        friend.getFriends().add(self);
+        userManager.save(self);
+        userManager.save(friend);
+    }
 }

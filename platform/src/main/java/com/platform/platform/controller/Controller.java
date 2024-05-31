@@ -5,10 +5,7 @@ import com.platform.platform.client.SocialClient;
 import com.platform.platform.model.dto.RegistrationDataDTO;
 import com.platform.platform.model.dto.UserDTO;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.UUID;
@@ -26,7 +23,21 @@ public class Controller {
         UserDTO userDetails = socialClient.getUserDetails(uuid);
         userDetails.setSelf(true);
         model.addObject("userData", userDetails);
-        model.addObject("uuid", "хуй");
+        model.addObject("uuid", uuid);
+        return model;
+    }
+
+    @GetMapping("/{userUuid}")
+    public ModelAndView getUserPage(@PathVariable String userUuid, @CookieValue("userUuid") String uuid) {
+        ModelAndView model = new ModelAndView("main-page");
+        UserDTO userDetails = socialClient.getUserDetails(userUuid);
+        if (uuid.equals(userUuid)) {
+            userDetails.setSelf(true);
+        } else  {
+            userDetails.setSelf(false);
+        }
+        model.addObject("userData", userDetails);
+        model.addObject("uuid", userUuid);
         return model;
     }
 
@@ -45,6 +56,12 @@ public class Controller {
     @GetMapping("/authorization")
     public ModelAndView getAuthorizationPage() {
         return new ModelAndView("authorization");
+    }
+
+
+    @GetMapping("/friend/add/{userUuid}")
+    public void addToFriend(@PathVariable String userUuid, @CookieValue("userUuid") String selfUuid) {
+        socialClient.addToFriend(userUuid, selfUuid);
     }
 
 }

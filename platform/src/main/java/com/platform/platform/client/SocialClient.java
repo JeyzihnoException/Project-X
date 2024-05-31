@@ -6,13 +6,11 @@ import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Map;
-
 @Service
 @RequiredArgsConstructor
 public class SocialClient implements AbstractClient {
 
-//    @Value("${services.social}")
+    //    @Value("${services.social}")
     private String host = "http://localhost:8080";
 
     private final RestTemplate restTemplate;
@@ -22,6 +20,13 @@ public class SocialClient implements AbstractClient {
                 HttpMethod.GET,
                 null,
                 UserDTO.class).getBody();
+    }
+
+    public void addToFriend(String userUuid, String selfUuid) {
+        restTemplate.exchange(urlBuilder(host, "/friend/add/" + userUuid + "/" + selfUuid),
+                HttpMethod.GET,
+                null,
+                Void.class);
     }
 
 }

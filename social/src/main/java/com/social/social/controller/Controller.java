@@ -21,4 +21,9 @@ public class Controller {
     public UserDTO getUserInfo(@PathVariable UUID userUuid) {
         return userService.getUserDetails(userUuid);
     }
+
+    @GetMapping("/friend/add/{userUuid}/{selfUuid}")
+    public void addToFriend(@PathVariable String userUuid, @PathVariable String selfUuid) {
+        userService.addToFriend(userUuid, selfUuid);
+    }
 }

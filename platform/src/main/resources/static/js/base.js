@@ -25,6 +25,13 @@ $(document).on('click', '.registration', async function (e) {
     })
 });
 
+$(document).on('click', '.add-to-friend', async function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    mainAjaxFunc("/friend/add/" + $('.main-panel').attr('uuid'), "GET").then(function (result) {
+    })
+});
+
 // $(document).on('click', '.auth-btn', async function (e) {
 //     e.preventDefault();
 //     e.stopPropagation();

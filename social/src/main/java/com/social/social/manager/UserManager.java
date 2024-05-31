@@ -16,4 +16,8 @@ public class UserManager {
     public Optional<User> getUserByUuid(UUID uuid) {
         return repository.findById(uuid);
     }
+
+    public void save(User user) {
+        repository.save(user);
+    }
 }
