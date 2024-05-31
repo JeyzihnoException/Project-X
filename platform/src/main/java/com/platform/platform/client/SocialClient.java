@@ -13,15 +13,15 @@ import java.util.Map;
 public class SocialClient implements AbstractClient {
 
 //    @Value("${services.social}")
-    private String host;
+    private String host = "http://localhost:8080";
 
     private final RestTemplate restTemplate;
 
-    public UserDTO getMainPageData(String userUuid) {
-        return restTemplate.exchange(urlBuilder(host, "/main/get-info",
-                        Map.of("userUuid", userUuid)),
+    public UserDTO getUserDetails(String userUuid) {
+        return restTemplate.exchange(urlBuilder(host, "/" + userUuid),
                 HttpMethod.GET,
                 null,
                 UserDTO.class).getBody();
     }
+
 }

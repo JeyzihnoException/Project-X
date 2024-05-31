@@ -4,25 +4,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Профиль пользователя</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/styles/style.css">
 </head>
 <body>
-<div class="main-contaier">
+<div class="main-page-container">
+    <div class="main-panel" th:attr="uuid=${uuid}">
+        <div class="my-friend-btn">
+            Мои друзья
+        </div>
+        <div class="messenger">
+            Мои сообщения
+        </div>
+    </div>
     <div class="self">
         <div class="photo">
-
+            <img src="/images/default_photo.jpg" alt="Описание изображения">
         </div>
-        <div class="self-btns" th:if="${!mainPageData.self}">
+        <div class="self-btns" th:if="${!userData.self}">
             <p class="self-btn">Добавить в друзья</p>
             <p class="self-btn">Отправить сообщение</p>
         </div>
-        <div class="friends">
-
+        <div class="friends-container">
+            <h2>Список друзей</h2>
+            <div class="friends">
+                <div th:each="friend : ${userData.getFriends()}" class="friend">
+                    <img src="/images/default_photo.jpg" alt="Photo" class="round-image">
+                    <div class="friend-first-name" th:text="${friend.getFirstName()}">
+                    </div>
+                </div>
+            </div>
         </div>
 
     </div>
 
     <div class="self-data">
+        <div class="fio">
+            <div class="first-name" th:text="${userData.getFirstName()}"></div>
+            <div class="second-name" th:text="${userData.getSecondName()}"></div>
+        </div>
+
+        <div class="additional-self-data">
+            <div class="country" th:text="'Страна: ' + ${userData.getSelfData().getCountry()}"></div>
+            <div class="city" th:text="'Город: ' + ${userData.getSelfData().getCity()}"></div>
+            <div class="date-of-birth" th:text="'Дата рождения: ' + ${userData.getSelfData().getDateOfBirth()}"></div>
+        </div>
+
     </div>
 </div>
 </body>

@@ -3,11 +3,9 @@ package com.authorization.authorization.model.dto;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Set;
-
 @Getter
 @Setter
-public class UserDTO {
-    private String username;
-    private String role;
+public class AuthDTO {
+    private String userName;
+    private String password;
 }

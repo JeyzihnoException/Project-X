@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профиль пользователя</title>
+    <link href="/styles/registration.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="main-container">
+    <div class="auth-btns">
+        <div class="registration">
+            Регистрация
+        </div>
+    </div>
+    <div class="container">
+        <h2>Авторизация</h2>
+        <form th:action="@{/login}" method="post">
+            <input class="username-input" type="text" name="username" placeholder="Имя пользователя" required>
+            <input class="password-input"  type="text" name="password" placeholder="Пароль" required>
+            <button class="auth-btn" type="submit">Авторизация</button>
+        </form>
+    </div>
+
+</div>
+</body>
+
+<script src="/js/jquery-3.7.0.min.js"></script>
+<script src="/js/base.js"></script>
+</html>

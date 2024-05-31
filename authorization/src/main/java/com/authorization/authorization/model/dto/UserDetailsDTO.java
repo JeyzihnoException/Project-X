@@ -1,4 +1,4 @@
-package com.platform.platform.model.dto;
+package com.authorization.authorization.model.dto;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -9,7 +9,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @Builder
-public class FriendDTO {
+public class UserDetailsDTO {
     private UUID uuid;
-    private String firstName;
+    private String role;
 }

@@ -1,0 +1,178 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    background-color: #f8f9fa;
+/ Светло-серый фон * /
+}
+
+.main-page-container {
+    display: flex;
+    align-items: flex-start;
+    gap: 30px;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 900px;
+    margin: 20px auto;
+}
+
+.self {
+    width: 250px;
+    margin-bottom: 20px;
+}
+
+.photo {
+    width: 100%;
+    padding-top: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 20px;
+    border: 4px solid #3c53e7;
+}
+
+.photo img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.self-btns {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.main-panel {
+    width: 200px;
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.main-panel div {
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.my-friend-btn {
+    background-color: #4CAF50;
+/ Зеленый фон * / color: white;
+}
+
+.my-friend-btn:hover {
+    background-color: #45a049;
+/ Более темный зеленый при наведении * /
+}
+
+.messenger {
+    background-color: #008CBA;
+/ Голубой фон * / color: white;
+}
+
+.messenger:hover {
+    background-color: #0077b3;
+/ Более темный голубой при наведении * /
+}
+
+
+.self-btn {
+    padding: 10px 15px;
+    background-color: #3498db;
+/ Голубой цвет кнопки * / border: none;
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    color: #fff;
+    text-decoration: none;
+}
+
+.self-btn:hover {
+    background-color: #2980b9;
+
+}
+
+.friends-container {
+    flex: 1;
+}
+
+.friends-container h2 {
+    margin-bottom: 15px;
+    font-size: 22px;
+    color: #2c3e50;
+    font-weight: 600;
+    border-bottom: 2px solid #ecf0f1;
+    padding-bottom: 10px;
+
+}
+
+.friends {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.friend {
+    width: 48%;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+
+.friend img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 5px;
+    border: 2px solid #ecf0f1;
+    cursor: pointer;
+}
+
+
+.friend-first-name {
+    font-weight: bold;
+    color: #27ae60;
+/ Зеленый цвет имени друга * /
+}
+
+.self-data {
+    flex: 1;
+}
+
+.fio {
+    margin-bottom: 20px;
+}
+
+.fio .first-name {
+    font-size: 28px;
+    font-weight: bold;
+    color: #34495e;
+/ Темно-серый цвет имени * /
+}
+
+.fio .second-name {
+    font-size: 20px;
+    color: #7f8c8d;
+/ Светло-серый цвет фамилии * /
+}
+
+.additional-self-data {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.additional-self-data div {
+    font-size: 16px;
+    color: #666;
+}

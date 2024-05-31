@@ -1,6 +1,8 @@
 package com.platform.platform.client;
 
+import com.platform.platform.model.dto.AuthDTO;
 import com.platform.platform.model.dto.RegistrationDataDTO;
+import com.platform.platform.model.dto.UserDetailsDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -19,6 +21,14 @@ public class AuthClient implements AbstractClient {
                 HttpMethod.POST,
                 new HttpEntity<>(registrationDataDTO),
                 String.class)
+                .getBody();
+    }
+
+    public UserDetailsDTO userAuthorization(AuthDTO authDTO) {
+        return restTemplate.exchange(urlBuilder(host, "/authorization"),
+                        HttpMethod.POST,
+                        new HttpEntity<>(authDTO),
+                        UserDetailsDTO.class)
                 .getBody();
     }
 

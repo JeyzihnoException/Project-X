@@ -5,6 +5,7 @@ import com.authorization.authorization.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -13,11 +14,15 @@ public class UserManager {
 
     private final UserRepository repository;
 
-    public boolean isUserExist(String firstName, String secondName) {
-        return repository.existsUserByFirstNameAndSecondName(firstName, secondName);
+    public boolean isUserExist(String firstName, String password) {
+        return repository.existsUserByFirstNameAndPassword(firstName, password);
     }
 
     public void save(User user) {
         repository.save(user);
+    }
+
+    public Optional<User> getByUserNameAndPassword(String firstName, String password) {
+        return repository.findByFirstNameAndPassword(firstName, password);
     }
 }

@@ -1,4 +1,4 @@
-package com.platform.platform.model.dto;
+package com.social.social.model.dto;
 
 import lombok.Builder;
 import lombok.Getter;

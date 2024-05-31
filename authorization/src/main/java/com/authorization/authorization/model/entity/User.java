@@ -22,13 +22,17 @@ public class User {
     private String firstName;
     private String secondName;
     private String gender;
-    private LocalDateTime dateOfBorn;
+    private String password;
+    private String role;
+    private LocalDateTime dateOfBirth;
 
-    public User(String firstName, String secondName, String gender, LocalDateTime dateOfBorn) {
+    public User(String firstName, String secondName, String gender, String password, LocalDateTime dateOfBorn) {
         this.uuid = UUID.randomUUID();
         this.gender = gender;
+        this.password = password;
+        this.role = "USER";
         this.firstName = firstName;
         this.secondName = secondName;
-        this.dateOfBorn = dateOfBorn;
+        this.dateOfBirth = dateOfBorn;
     }
 }
