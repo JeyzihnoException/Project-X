@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профиль пользователя</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="main-contaier">
+    <div class="self">
+        <div class="photo">
+
+        </div>
+        <div class="self-btns" th:if="${!mainPageData.self}">
+            <p class="self-btn">Добавить в друзья</p>
+            <p class="self-btn">Отправить сообщение</p>
+        </div>
+        <div class="friends">
+
+        </div>
+
+    </div>
+
+    <div class="self-data">
+    </div>
+</div>
+</body>
+</html>

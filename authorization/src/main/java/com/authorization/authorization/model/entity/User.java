@@ -1,21 +1,19 @@
-package com.social.social.model.entity;
+package com.authorization.authorization.model.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.cglib.core.Local;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.UUID;
 
 @Table(name = "users")
 @Getter
 @Setter
+@NoArgsConstructor
 @Entity
 public class User {
     @Id
@@ -26,9 +24,11 @@ public class User {
     private String gender;
     private LocalDateTime dateOfBorn;
 
-    @ManyToMany
-    private Set<Dialogue> dialogues = new HashSet<>();
-
-    @ManyToMany
-    private Set<Community> communities = new HashSet<>();
+    public User(String firstName, String secondName, String gender, LocalDateTime dateOfBorn) {
+        this.uuid = UUID.randomUUID();
+        this.gender = gender;
+        this.firstName = firstName;
+        this.secondName = secondName;
+        this.dateOfBorn = dateOfBorn;
+    }
 }

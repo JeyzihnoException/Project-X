@@ -1,0 +1,2 @@
+services:
+  social: 'http://localhost:8080'
