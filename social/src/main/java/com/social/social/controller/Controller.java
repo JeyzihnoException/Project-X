@@ -10,7 +10,7 @@ public class Controller {
 
     @GetMapping("/main")
     public ModelAndView getMainPage() {
-        return new ModelAndView("template/main-page.html");
+        return new ModelAndView("main-page");
     }
 
 
