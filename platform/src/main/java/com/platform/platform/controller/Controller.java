@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RestController("/main")
 @RequiredArgsConstructor
@@ -33,10 +34,14 @@ public class Controller {
         UserDTO userDetails = socialClient.getUserDetails(userUuid);
         if (uuid.equals(userUuid)) {
             userDetails.setSelf(true);
-        } else  {
+        } else {
             userDetails.setSelf(false);
         }
         model.addObject("userData", userDetails);
+        model.addObject("isFriend", userDetails.getFriends()
+                .stream()
+                .filter(friendDTO -> friendDTO.getUuid().equals(UUID.fromString(uuid)))
+                .collect(Collectors.toSet()).isEmpty());
         model.addObject("uuid", userUuid);
         return model;
     }
@@ -63,5 +68,15 @@ public class Controller {
     public void addToFriend(@PathVariable String userUuid, @CookieValue("userUuid") String selfUuid) {
         socialClient.addToFriend(userUuid, selfUuid);
     }
+
+    @GetMapping("/friend/delete/{userUuid}")
+    public void deleteFromFriend(@PathVariable String userUuid, @CookieValue("userUuid") String selfUuid) {
+        socialClient.deleteFromFriend(userUuid, selfUuid);
+    }
+
+//    @GetMapping("/friend/get-all")
+//    public ModelAndView getFriends(@CookieValue("userUuid") String selfUuid) {
+//        ModelAndView modelAndView = new ModelAndView();
+//    }
 
 }

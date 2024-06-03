@@ -32,6 +32,23 @@ $(document).on('click', '.add-to-friend', async function (e) {
     })
 });
 
+$(document).on('click', '.delete-from-friend', async function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    mainAjaxFunc("/friend/delete/" + $('.main-panel').attr('uuid'), "GET").then(function (result) {
+    })
+});
+
+$(document).on('click', '.friend', async function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    mainAjaxFunc("/" + $(this).attr('uuid'), "GET").then(function (result) {
+        $('body').html(result);
+    })
+});
+
+
+
 // $(document).on('click', '.auth-btn', async function (e) {
 //     e.preventDefault();
 //     e.stopPropagation();

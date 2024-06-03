@@ -49,4 +49,13 @@ public class UserService {
         userManager.save(self);
         userManager.save(friend);
     }
+
+    public void deleteFromFriend(String uuid, String selfUuid) {
+        User self = userManager.getUserByUuid(UUID.fromString(selfUuid)).orElseThrow();
+        User friend = userManager.getUserByUuid(UUID.fromString(uuid)).orElseThrow();
+        self.getFriends().removeIf(fr -> fr.getUuid().equals(UUID.fromString(uuid)));
+        friend.getFriends().removeIf(fr -> fr.getUuid().equals(UUID.fromString(selfUuid)));
+        userManager.save(self);
+        userManager.save(friend);
+    }
 }

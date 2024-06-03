@@ -2,7 +2,9 @@ body {
     font-family: 'Arial', sans-serif;
     margin: 0;
     background-color: #f8f9fa;
-/ Светло-серый фон * /
+    height: 100vh;
+    display: flex;
+    justify-content: center;
 }
 
 .main-page-container {
@@ -13,8 +15,10 @@ body {
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    max-width: 900px;
-    margin: 20px auto;
+    height: 90vh;
+    max-width: 50%;
+    max-height: 70%;
+    align-self: center;
 }
 
 .self {
@@ -44,8 +48,42 @@ body {
 .self-btns {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 0;
 }
+
+.self-btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 0; /Убираем закругление углов */
+cursor: pointer;
+    transition: background-color 0.3s;
+    text-align: center;
+}
+
+.self-btn:first-child { /Закругление только для первой кнопки */
+border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.self-btn:last-child { /Закругление только для последней кнопки */
+border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.self-btn:hover {
+    background-color: #3498db;
+}
+
+.self-btn.delete-from-friend {
+    background-color: #3498db;
+}
+
+.self-btn.delete-from-friend:hover {
+    background-color: #2980b9;
+}
+
 
 .main-panel {
     width: 200px;
@@ -53,6 +91,7 @@ body {
     border-radius: 8px;
     padding: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    height: 95%;
 }
 
 .main-panel div {
@@ -64,18 +103,18 @@ body {
 }
 
 .my-friend-btn {
-    background-color: #4CAF50;
-/ Зеленый фон * / color: white;
+    background-color: #3498db;
+    color: white;
 }
 
 .my-friend-btn:hover {
-    background-color: #45a049;
+    background-color: #0077b3;
 / Более темный зеленый при наведении * /
 }
 
 .messenger {
-    background-color: #008CBA;
-/ Голубой фон * / color: white;
+    background-color: #3498db;
+    color: white;
 }
 
 .messenger:hover {
@@ -87,7 +126,8 @@ body {
 .self-btn {
     padding: 10px 15px;
     background-color: #3498db;
-/ Голубой цвет кнопки * / border: none;
+    margin: 2px;
+    border: none;
     border-radius: 5px;
     text-align: center;
     cursor: pointer;

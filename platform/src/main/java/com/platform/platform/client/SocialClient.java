@@ -28,5 +28,11 @@ public class SocialClient implements AbstractClient {
                 null,
                 Void.class);
     }
+    public void deleteFromFriend(String userUuid, String selfUuid) {
+        restTemplate.exchange(urlBuilder(host, "/friend/delete/" + userUuid + "/" + selfUuid),
+                HttpMethod.GET,
+                null,
+                Void.class);
+    }
 
 }
