@@ -29,6 +29,7 @@ public class UserService {
                         .map(friend -> FriendDTO
                                 .builder()
                                 .firstName(friend.getFirstName())
+                                .lastName(friend.getSecondName())
                                 .uuid(friend.getUuid())
                                 .build())
                         .collect(Collectors.toSet()))

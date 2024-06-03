@@ -12,4 +12,5 @@ import java.util.UUID;
 public class FriendDTO {
     private UUID uuid;
     private String firstName;
+    private String lastName;
 }

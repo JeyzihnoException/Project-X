@@ -16,41 +16,46 @@
             Мои сообщения
         </div>
     </div>
-    <div class="self">
-        <div class="photo">
-            <img src="/images/default_photo.jpg" alt="Описание изображения">
-        </div>
-        <div class="self-btns" th:if="${!userData.self}">
-            <p class="self-btn add-to-friend" th:if="${isFriend}">Добавить в друзья</p>
-            <p class="self-btn delete-from-friend" th:if="${!isFriend}">Удалить из друзей</p>
-            <p class="self-btn">Отправить сообщение</p>
-        </div>
-        <div class="friends-container">
-            <h2>Список друзей</h2>
-            <div class="friends">
-                <div th:each="friend : ${userData.getFriends()}" class="friend" th:attr="uuid=${friend.getUuid()}">
-                    <img src="/images/default_photo.jpg" alt="Photo" class="round-image">
-                    <div class="friend-first-name" th:text="${friend.getFirstName()}">
+
+    <div class="self-info">
+        <div class="self">
+            <div class="photo">
+                <img src="/images/default_photo.jpg" alt="Описание изображения">
+            </div>
+            <div class="self-btns" th:if="${!userData.self}">
+                <p class="self-btn add-to-friend" th:if="${isFriend}">Добавить в друзья</p>
+                <p class="self-btn delete-from-friend" th:if="${!isFriend}">Удалить из друзей</p>
+                <p class="self-btn">Отправить сообщение</p>
+            </div>
+            <div class="friends-container">
+                <h2>Список друзей</h2>
+                <div class="friends">
+                    <div th:each="friend : ${userData.getFriends()}" class="friend" th:attr="uuid=${friend.getUuid()}">
+                        <img src="/images/default_photo.jpg" alt="Photo" class="round-image">
+                        <div class="friend-first-name" th:text="${friend.getFirstName()}">
+                        </div>
                     </div>
                 </div>
             </div>
+
         </div>
 
+        <div class="self-data">
+            <div class="fio">
+                <div class="first-name" th:text="${userData.getFirstName()}"></div>
+                <div class="second-name" th:text="${userData.getSecondName()}"></div>
+            </div>
+
+            <div class="additional-self-data">
+                <div class="country" th:text="'Страна: ' + ${userData.getSelfData().getCountry()}"></div>
+                <div class="city" th:text="'Город: ' + ${userData.getSelfData().getCity()}"></div>
+                <div class="date-of-birth"
+                     th:text="'Дата рождения: ' + ${userData.getSelfData().getDateOfBirth()}"></div>
+            </div>
+
+        </div>
     </div>
 
-    <div class="self-data">
-        <div class="fio">
-            <div class="first-name" th:text="${userData.getFirstName()}"></div>
-            <div class="second-name" th:text="${userData.getSecondName()}"></div>
-        </div>
-
-        <div class="additional-self-data">
-            <div class="country" th:text="'Страна: ' + ${userData.getSelfData().getCountry()}"></div>
-            <div class="city" th:text="'Город: ' + ${userData.getSelfData().getCity()}"></div>
-            <div class="date-of-birth" th:text="'Дата рождения: ' + ${userData.getSelfData().getDateOfBirth()}"></div>
-        </div>
-
-    </div>
 </div>
 </body>
 <script src="/js/jquery-3.7.0.min.js"></script>

@@ -47,6 +47,15 @@ $(document).on('click', '.friend', async function (e) {
     })
 });
 
+$(document).on('click', '.my-friend-btn', async function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    mainAjaxFunc("/friend/get-all", "GET").then(function (result) {
+        $('.self-info').html(result);
+    })
+});
+
+
 
 
 // $(document).on('click', '.auth-btn', async function (e) {

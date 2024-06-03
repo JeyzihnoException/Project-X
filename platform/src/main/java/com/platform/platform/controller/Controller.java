@@ -74,9 +74,10 @@ public class Controller {
         socialClient.deleteFromFriend(userUuid, selfUuid);
     }
 
-//    @GetMapping("/friend/get-all")
-//    public ModelAndView getFriends(@CookieValue("userUuid") String selfUuid) {
-//        ModelAndView modelAndView = new ModelAndView();
-//    }
-
+    @GetMapping("/friend/get-all")
+    public ModelAndView getFriends(@CookieValue("userUuid") String selfUuid) {
+        ModelAndView modelAndView = new ModelAndView("friends-page");
+        modelAndView.addObject("friends", socialClient.getUserDetails(selfUuid).getFriends());
+        return modelAndView;
+    }
 }

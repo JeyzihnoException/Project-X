@@ -19,11 +19,13 @@ body {
     max-width: 50%;
     max-height: 70%;
     align-self: center;
+    width: 40%;
 }
 
 .self {
     width: 250px;
     margin-bottom: 20px;
+    margin-right: 5vh;
 }
 
 .photo {
@@ -215,4 +217,15 @@ border-bottom-left-radius: 5px;
 .additional-self-data div {
     font-size: 16px;
     color: #666;
+}
+
+.self-info {
+    display: flex;
+    width: 80%;
+    height: 100%;
+}
+
+.friend-row {
+    display: flex;
+    height: 30%;
 }
