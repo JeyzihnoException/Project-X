@@ -1,7 +1,6 @@
-package com.social.social.model.entity;
+package com.platform.platform.model.dto;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,12 +9,11 @@ import java.util.UUID;
 
 @Getter
 @Setter
-@Entity
-public class Message {
-    @Id
-    private UUID uuid;
-
+@Builder
+public class MessageDTO {
     private String content;
     private UUID authorId;
+    private String authorFirsName;
+    private String authorSecondName;
     private LocalDateTime sendTime;
 }

@@ -58,19 +58,19 @@ body {
     color: white;
     padding: 10px 15px;
     border: none;
-    border-radius: 0; /Убираем закругление углов */
-cursor: pointer;
+    border-radius: 0;
+/ Убираем закругление углов * / cursor: pointer;
     transition: background-color 0.3s;
     text-align: center;
 }
 
-.self-btn:first-child { /Закругление только для первой кнопки */
-border-top-left-radius: 5px;
+.self-btn:first-child {
+/ Закругление только для первой кнопки * / border-top-left-radius: 5 px;
     border-top-right-radius: 5px;
 }
 
-.self-btn:last-child { /Закругление только для последней кнопки */
-border-bottom-left-radius: 5px;
+.self-btn:last-child {
+/ Закругление только для последней кнопки * / border-bottom-left-radius: 5 px;
     border-bottom-right-radius: 5px;
 }
 
@@ -83,6 +83,10 @@ border-bottom-left-radius: 5px;
 }
 
 .self-btn.delete-from-friend:hover {
+    background-color: #2980b9;
+}
+
+.send-message-btn:hover {
     background-color: #2980b9;
 }
 
@@ -104,12 +108,12 @@ border-bottom-left-radius: 5px;
     transition: background-color 0.3s ease;
 }
 
-.my-friend-btn, .my-page{
+.my-friend-btn, .my-page {
     background-color: #3498db;
     color: white;
 }
 
-.my-friend-btn:hover, .my-page:hover{
+.my-friend-btn:hover, .my-page:hover {
     background-color: #0077b3;
 }
 
@@ -225,11 +229,13 @@ border-bottom-left-radius: 5px;
 }
 
 .friend-row {
+    margin-top: 2vh;
     display: flex;
     height: 30%;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     justify-content: space-between;
+    cursor: pointer;
 }
 
 .friends-page {
@@ -256,5 +262,82 @@ border-bottom-left-radius: 5px;
 
 .delete-from-friend-friend-menu:hover {
     background-color: #0077b3;
+}
 
+.main-dialogue-container {
+    width: 100%;
+    display: flex;
+    align-items: end;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.container-msg {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}
+
+.text-container {
+    width: 95%;
+    height: 120px;
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    resize: vertical;
+
+}
+
+.send-message-btn {
+    text-align: center;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    background-color: #3498db;
+    color: white;
+}
+
+.text-container:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.message-text-container {
+    width: 100%;
+}
+
+.messages-container {
+    max-height: 45vh;
+    width: 100%;
+    overflow-y: scroll;
+}
+
+.message {
+    background-color: #f2f2f2;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.message p {
+    margin: 0 0 5px 0;
+}
+
+.message-date {
+    font-size: 0.8em;
+    color: #777;
+}
+
+.dialogue-partner {
+    display: flex;
+    align-self: center;
+    cursor: pointer;
+    margin-bottom: 1vh;
+    font-size: 28px;
+    font-weight: bold;
+    color: #34495e;
 }

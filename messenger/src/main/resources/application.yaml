@@ -1,0 +1,12 @@
+server:
+  port: 8083
+spring:
+  application:
+    name: "messenger"
+  datasource:
+    username: "sa"
+    password: ""
+    url: "jdbc:postgresql://localhost:5432/postgres"
+  jpa:
+    hibernate:
+      ddl-auto: none

@@ -1,0 +1,23 @@
+<div class="main-dialogue-container" th:attr="uuid=${dialogue.getUuid()}">
+    <div class="dialogue-partner"
+         th:attr="uuid=${partnerId}"
+         th:text="${partnerName}">
+    </div>
+    <div class="container-msg">
+        <div class="messages-container">
+            <div class="message"
+                 th:each="message : ${dialogue.getMessages()}">
+                <p th:text="${message.getContent()}"></p>
+                <span class="message-date"
+                      th:text="${message.getSendTime()}"></span>
+            </div>
+        </div>
+
+        <div class="message-text-container">
+        <textarea class="text-container">
+        </textarea>
+            <div class="send-message-btn">Отправить</div>
+        </div>
+    </div>
+
+</div>

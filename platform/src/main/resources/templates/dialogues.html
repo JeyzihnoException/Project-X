@@ -1,0 +1,10 @@
+<div class="main-message-container">
+    <div th:each="dialogue : ${dialogues}" class="dialogue" th:attr="uuid=${dialogue.getUuid()}">
+        <div class="dialogue-photo">
+            <img src="/images/default_photo.jpg">
+        </div>
+        <div class="dialogue-partner" th:text="${dialogue.getUuid()}">
+
+        </div>
+    </div>
+</div>

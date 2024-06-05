@@ -1,4 +1,4 @@
-package com.social.social.model.entity;
+package com.messenger.messenger.model.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -15,7 +15,7 @@ public class Dialogue {
     @Id
     private UUID uuid;
 
-    @OneToMany(cascade = CascadeType.PERSIST)
+    @OneToMany(cascade = {CascadeType.ALL})
     private Set<Message> messages = new HashSet<>();
 
     @ManyToMany

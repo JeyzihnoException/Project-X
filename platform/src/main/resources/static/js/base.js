@@ -7,7 +7,7 @@ async function mainAjaxFunc(path, method, data, headers) {
     });
 }
 
-$(document).on('click', '.auth', async function (e) {
+$('.auth').off('click').on('click', function(e) {
     e.preventDefault();
     e.stopPropagation();
     mainAjaxFunc("/authorization", "GET").then(function (result) {
@@ -16,7 +16,7 @@ $(document).on('click', '.auth', async function (e) {
     })
 });
 
-$(document).on('click', '.registration', async function (e) {
+$('.registration').off('click').on('click', function(e) {
     e.preventDefault();
     e.stopPropagation();
     mainAjaxFunc("/registration", "GET").then(function (result) {
@@ -25,68 +25,130 @@ $(document).on('click', '.registration', async function (e) {
     })
 });
 
-$(document).on('click', '.add-to-friend', async function (e) {
+$('.add-to-friend').off('click').on('click', function(e) {
     e.preventDefault();
     e.stopPropagation();
-    mainAjaxFunc("/friend/add/" + $('.main-panel').attr('uuid'), "GET").then(function (result) {
-    })
+    mainAjaxFunc("/friend/add/" + $('.main-panel').attr('uuid'), "GET");
 });
 
-$(document).on('click', '.delete-from-friend', async function (e) {
+$('.delete-from-friend').off('click').on('click', function(e) {
     e.preventDefault();
     e.stopPropagation();
-    mainAjaxFunc("/friend/delete/" + $('.main-panel').attr('uuid'), "GET").then(function (result) {
-    })
+    mainAjaxFunc("/friend/delete/" + $('.main-panel').attr('uuid'), "GET");
 });
 
-$(document).on('click', '.delete-from-friend-friend-menu', async function (e) {
+$('.delete-from-friend-friend-menu').off('click').on('click', function(e) {
     e.preventDefault();
     e.stopPropagation();
-    mainAjaxFunc("/friend/delete/" + $('.friend-row').attr('uuid'), "GET").then(function (result) {
-    })
+    mainAjaxFunc("/friend/delete/" + $('.friend-row').attr('uuid'), "GET");
 });
 
-$(document).on('click', '.friend', async function (e) {
+$('.friend').off('click').on('click', function(e) {
     e.preventDefault();
     e.stopPropagation();
-    mainAjaxFunc("/" + $(this).attr('uuid'), "GET").then(function (result) {
+    let uuid = $(this).attr('uuid');
+    mainAjaxFunc("/" + uuid, "GET").then(function (result) {
         $('body').html(result);
-    })
+        window.history.pushState(null, "", "/" + uuid);
+    });
 });
 
-$(document).on('click', '.my-friend-btn', async function (e) {
+$('.my-friend-btn').off('click').on('click', function(e) {
     e.preventDefault();
     e.stopPropagation();
     mainAjaxFunc("/friend/get-all", "GET").then(function (result) {
         $('.self-info').html(result);
+        reBindFriend();
         window.history.pushState(null, "", "/friend");
-    })
+    });
 });
 
-$(document).on('click', '.my-page', async function (e) {
+$('.my-page').off('click').on('click', function(e) {
     e.preventDefault();
     e.stopPropagation();
     mainAjaxFunc("/", "GET").then(function (result) {
         $('body').html(result);
         window.history.pushState(null, "", "/");
-    })
+    });
+});
+
+$('.send-message').off('click').on('click', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    mainAjaxFunc("/dialogue/get/" + $('.main-panel').attr('uuid'), "GET").then(function (result) {
+        $('.self-info').html(result);
+        reBindMessage();
+        window.history.pushState(null, "", "/dialogue");
+    });
 });
 
 
 
+function reBindFriend(){
+    $('.friend-row').off('click').on('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        let uuid = $(this).attr('uuid');
+        mainAjaxFunc("/" + uuid, "GET").then(function (result) {
+            $('body').html(result);
+            window.history.pushState(null, "", "/" + uuid);
+        });
+    });
+}
 
-// $(document).on('click', '.auth-btn', async function (e) {
-//     e.preventDefault();
-//     e.stopPropagation();
-//     let username = $('.username-input').eq(0).val();
-//     let password = $('.password-input').eq(0).val();
-//     let userObject = {
-//         userName: username,
-//         password: password
-//     };
-//
-//     mainAjaxFunc("/authorization", "POST", userObject,
-//         {'Content-Type': 'application/json'}).then(function (result) {
-//         $('body').html(result);
-//     })
-// });
+function reBindMessage() {
+    $('.send-message-btn').off('click').on('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        mainAjaxFunc("/message/send/" + $('.main-dialogue-container').attr('uuid') + "/" + $('.text-container').val(), "GET").then(function (result) {
+            window.history.pushState(null, "", "/dialogue");
+        });
+    });
+    reBindDialoguePartner();
+}
+
+function reBindDialoguePartner() {
+    $('.dialogue-partner').off('click').on('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        let uuid = $(this).attr('uuid');
+        mainAjaxFunc("/" + uuid, "GET").then(function (result) {
+            $('body').html(result);
+            window.history.pushState(null, "", "/" + uuid);
+        });
+    });
+}
+
+let dialogueMessageEventSource = new EventSource("/message/listen");
+
+dialogueMessageEventSource.onmessage = (event) => {
+    let data = JSON.parse(event.data);
+
+    if (data.dialogueId === $('.main-dialogue-container').attr('uuid')) {
+        let div = $('<div>');
+        div.addClass( 'message');
+
+        let p = $('<p>');
+        p.text(data.message);
+
+        let span = $('<span>');
+        span.addClass( 'message-date');
+        span.text(data.sendTime);
+
+        div.append(p);
+        div.append(span);
+        $('.messages-container').append(div);
+    }
+};
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,13 +1,22 @@
 package com.platform.platform.controller;
 
 import com.platform.platform.client.AuthClient;
+import com.platform.platform.client.MessengerClient;
 import com.platform.platform.client.SocialClient;
+import com.platform.platform.model.dto.DialogueDTO;
+import com.platform.platform.model.dto.MessageDTO;
 import com.platform.platform.model.dto.RegistrationDataDTO;
 import com.platform.platform.model.dto.UserDTO;
+import com.platform.platform.model.event.MessageEvent;
+import com.platform.platform.model.event.Processor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import reactor.core.publisher.Flux;
 
+import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -17,11 +26,22 @@ public class Controller {
 
     private final AuthClient authClient;
     private final SocialClient socialClient;
+    private final MessengerClient messengerClient;
+    private final Processor processor;
+
+
+    @GetMapping(path = "/message/listen",
+            produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public Flux<MessageEvent> messageListener() {
+        return Flux.create(sink -> processor.register(sink::next));
+    }
+
 
     @GetMapping("/")
     public ModelAndView getMainPage(@CookieValue("userUuid") String uuid) {
         ModelAndView model = new ModelAndView("main-page");
         UserDTO userDetails = socialClient.getUserDetails(uuid);
+
         userDetails.setSelf(true);
         model.addObject("userData", userDetails);
         model.addObject("uuid", uuid);
@@ -79,5 +99,44 @@ public class Controller {
         ModelAndView modelAndView = new ModelAndView("friends-page");
         modelAndView.addObject("friends", socialClient.getUserDetails(selfUuid).getFriends());
         return modelAndView;
+    }
+
+    @GetMapping("/dialogue/get/{userUuid}")
+    public ModelAndView getDialogue(@PathVariable String userUuid, @CookieValue("userUuid") String selfUuid) {
+        ModelAndView modelAndView = new ModelAndView("dialogue");
+        DialogueDTO dialogue = messengerClient.getDialogue(userUuid, selfUuid);
+        dialogue.setMessages(dialogue
+                .getMessages().stream()
+                .sorted(Comparator.comparing(MessageDTO::getSendTime))
+                .toList());
+        modelAndView.addObject("dialogue", dialogue);
+        modelAndView.addObject("partnerName", dialogue.getPartner());
+        modelAndView.addObject("partnerId", userUuid);
+        return modelAndView;
+    }
+
+    @GetMapping("/message/send/{dialogueUuid}/{message}")
+    public void sendMessage(@PathVariable String dialogueUuid,
+                            @PathVariable String message,
+                            @CookieValue("userUuid") String selfUuid) {
+        messengerClient.sendMessage(MessageDTO
+                .builder()
+                .content(message)
+                .sendTime(LocalDateTime.now())
+                .authorId(UUID.fromString(selfUuid))
+                .build(), dialogueUuid);
+        processor.process(MessageEvent
+                .builder()
+                .dialogueId(UUID.fromString(dialogueUuid))
+                .message(message)
+                .sendTime("12:00")
+                .build());
+    }
+
+    @GetMapping("/dialogue/get-all")
+    public void getAllDialogues(
+                            @CookieValue("userUuid") String selfUuid) {
+        ModelAndView modelAndView = new ModelAndView("dialogues");
+        modelAndView.addObject("dialogues", );
     }
 }

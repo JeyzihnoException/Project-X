@@ -1,5 +1,6 @@
 package com.platform.platform.client;
 
+import com.platform.platform.model.dto.DialogueDTO;
 import com.platform.platform.model.dto.UserDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpMethod;
