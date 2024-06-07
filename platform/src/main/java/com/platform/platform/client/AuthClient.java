@@ -9,6 +9,8 @@ import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
 public class AuthClient implements AbstractClient {
@@ -18,9 +20,9 @@ public class AuthClient implements AbstractClient {
 
     public String userRegistration(RegistrationDataDTO registrationDataDTO) {
         return restTemplate.exchange(urlBuilder(host, "/registration"),
-                HttpMethod.POST,
-                new HttpEntity<>(registrationDataDTO),
-                String.class)
+                        HttpMethod.POST,
+                        new HttpEntity<>(registrationDataDTO),
+                        String.class)
                 .getBody();
     }
 
@@ -32,5 +34,10 @@ public class AuthClient implements AbstractClient {
                 .getBody();
     }
 
-
+    public void deleteUser(UUID uuid) {
+        restTemplate.exchange(urlBuilder(host, "/user/delete/" + uuid),
+                HttpMethod.GET,
+                null,
+                Void.class);
+    }
 }

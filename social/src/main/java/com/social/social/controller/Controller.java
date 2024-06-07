@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController()
@@ -44,6 +45,11 @@ public class Controller {
     @GetMapping("/dialogue/get/{userUuid}/{selfUuid}")
     public ResponseEntity<DialogueDTO> getDialogue(@PathVariable UUID userUuid, @PathVariable UUID selfUuid) {
         return new ResponseEntity<>(dialogueService.getDialogue(userUuid, selfUuid), HttpStatus.OK);
+    }
+
+    @GetMapping("/users/get-all")
+    public ResponseEntity<List<UserDTO>> getAllUsers() {
+        return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
     }
 
 }

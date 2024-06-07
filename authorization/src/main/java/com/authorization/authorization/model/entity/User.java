@@ -2,12 +2,12 @@ package com.authorization.authorization.model.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Table(name = "users")
@@ -23,10 +23,12 @@ public class User {
     private String secondName;
     private String gender;
     private String password;
-    private String role;
     private String country;
     private String city;
     private String dateOfBirth;
+
+    @ManyToOne
+    private Role role;
 
     public User(String firstName, String secondName, String gender, String password,
                 String country,
@@ -35,7 +37,6 @@ public class User {
         this.uuid = UUID.randomUUID();
         this.gender = gender;
         this.password = password;
-        this.role = "USER";
         this.country = country;
         this.city = city;
         this.firstName = firstName;

@@ -9,6 +9,7 @@ import com.social.social.util.Util;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -58,5 +59,33 @@ public class UserService {
         friend.getFriends().removeIf(fr -> fr.getUuid().equals(UUID.fromString(selfUuid)));
         userManager.save(self);
         userManager.save(friend);
+    }
+
+    public List<UserDTO> getAllUsers() {
+        return userManager
+                .getAll()
+                .stream()
+                .map(user -> UserDTO
+                        .builder()
+                        .uuid(user.getUuid())
+                        .firstName(user.getFirstName())
+                        .secondName(user.getSecondName())
+                        .friends(user.getFriends()
+                                .stream()
+                                .map(friend -> FriendDTO
+                                        .builder()
+                                        .firstName(friend.getFirstName())
+                                        .lastName(friend.getSecondName())
+                                        .uuid(friend.getUuid())
+                                        .build())
+                                .collect(Collectors.toSet()))
+                        .selfData(SelfDataDTO
+                                .builder()
+                                .city(user.getCity())
+                                .country(user.getCountry())
+                                .dateOfBirth(user.getDateOfBirth())
+                                .build())
+                        .build())
+                .toList();
     }
 }

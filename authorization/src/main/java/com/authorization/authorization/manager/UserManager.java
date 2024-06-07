@@ -25,4 +25,8 @@ public class UserManager {
     public Optional<User> getByUserNameAndPassword(String firstName, String password) {
         return repository.findByFirstNameAndPassword(firstName, password);
     }
+
+    public void delete(UUID uuid) {
+        repository.deleteById(uuid);
+    }
 }

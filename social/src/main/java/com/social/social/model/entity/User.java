@@ -1,9 +1,6 @@
 package com.social.social.model.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,10 +21,12 @@ public class User {
     private String secondName;
     private String gender;
     private String password;
-    private String role;
     private String country;
     private String city;
     private String dateOfBirth;
+
+    @ManyToOne
+    private Role role;
 
     @ManyToMany
     private Set<Dialogue> dialogues = new HashSet<>();

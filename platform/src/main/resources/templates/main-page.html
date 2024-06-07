@@ -18,6 +18,10 @@
         <div class="messenger">
             Мои сообщения
         </div>
+
+        <div class="admin-panel-btn" th:if="${privileges.contains('ADMIN_PANEL')}">
+            Панель администратора
+        </div>
     </div>
 
     <div class="self-info">
@@ -40,7 +44,9 @@
                     </div>
                 </div>
             </div>
-
+            <div class="delete-user-btn" th:if="${privileges.contains('USER_DELETE')}">
+                Удалить пользователя
+            </div>
         </div>
 
         <div class="self-data">

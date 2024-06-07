@@ -7,7 +7,7 @@ async function mainAjaxFunc(path, method, data, headers) {
     });
 }
 
-$('.auth').off('click').on('click', function(e) {
+$('.auth').off('click').on('click', function (e) {
     e.preventDefault();
     e.stopPropagation();
     mainAjaxFunc("/authorization", "GET").then(function (result) {
@@ -16,7 +16,7 @@ $('.auth').off('click').on('click', function(e) {
     })
 });
 
-$('.registration').off('click').on('click', function(e) {
+$('.registration').off('click').on('click', function (e) {
     e.preventDefault();
     e.stopPropagation();
     mainAjaxFunc("/registration", "GET").then(function (result) {
@@ -25,35 +25,36 @@ $('.registration').off('click').on('click', function(e) {
     })
 });
 
-$('.add-to-friend').off('click').on('click', function(e) {
+$('.add-to-friend').off('click').on('click', function (e) {
     e.preventDefault();
     e.stopPropagation();
     mainAjaxFunc("/friend/add/" + $('.main-panel').attr('uuid'), "GET");
 });
 
-$('.delete-from-friend').off('click').on('click', function(e) {
+$('.delete-from-friend').off('click').on('click', function (e) {
     e.preventDefault();
     e.stopPropagation();
     mainAjaxFunc("/friend/delete/" + $('.main-panel').attr('uuid'), "GET");
 });
 
-$('.delete-from-friend-friend-menu').off('click').on('click', function(e) {
+$('.delete-from-friend-friend-menu').off('click').on('click', function (e) {
     e.preventDefault();
     e.stopPropagation();
     mainAjaxFunc("/friend/delete/" + $('.friend-row').attr('uuid'), "GET");
 });
 
-$('.friend').off('click').on('click', function(e) {
+$('.friend').off('click').on('click', function (e) {
     e.preventDefault();
     e.stopPropagation();
     let uuid = $(this).attr('uuid');
     mainAjaxFunc("/" + uuid, "GET").then(function (result) {
         $('body').html(result);
+        reBindDeleteUserBnt();
         window.history.pushState(null, "", "/" + uuid);
     });
 });
 
-$('.my-friend-btn').off('click').on('click', function(e) {
+$('.my-friend-btn').off('click').on('click', function (e) {
     e.preventDefault();
     e.stopPropagation();
     mainAjaxFunc("/friend/get-all", "GET").then(function (result) {
@@ -63,7 +64,7 @@ $('.my-friend-btn').off('click').on('click', function(e) {
     });
 });
 
-$('.my-page').off('click').on('click', function(e) {
+$('.my-page').off('click').on('click', function (e) {
     e.preventDefault();
     e.stopPropagation();
     mainAjaxFunc("/", "GET").then(function (result) {
@@ -72,7 +73,7 @@ $('.my-page').off('click').on('click', function(e) {
     });
 });
 
-$('.send-message').off('click').on('click', function(e) {
+$('.send-message').off('click').on('click', function (e) {
     e.preventDefault();
     e.stopPropagation();
     mainAjaxFunc("/dialogue/get/" + $('.main-panel').attr('uuid'), "GET").then(function (result) {
@@ -82,7 +83,7 @@ $('.send-message').off('click').on('click', function(e) {
     });
 });
 
-$('.messenger').off('click').on('click', function(e) {
+$('.messenger').off('click').on('click', function (e) {
     e.preventDefault();
     e.stopPropagation();
     mainAjaxFunc("/dialogue/get-all", "GET").then(function (result) {
@@ -92,10 +93,37 @@ $('.messenger').off('click').on('click', function(e) {
     });
 });
 
+$('.admin-panel-btn').off('click').on('click', function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    mainAjaxFunc("/admin/panel", "GET").then(function (result) {
+        $('.self-info').html(result);
+        reBindDeleteUserBnt();
+        // window.history.pushState(null, "", "/admin/panel");
+    });
+});
+$('.delete-user-btn').off('click').on('click', function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    mainAjaxFunc("/user/delete/" + $('.main-panel').attr('uuid'), "GET").then(function (result) {
+        $('.self-info').html(result);
+        window.history.pushState(null, "", "/dialogue");
+    });
+});
 
+function reBindDeleteUserBnt() {
+    $('.delete-user-btn').off('click').on('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        mainAjaxFunc("/user/delete/" + $('.main-panel').attr('uuid'), "GET").then(function (result) {
+            $('.self-info').html(result);
+            window.history.pushState(null, "", "/dialogue");
+        });
+    });
+}
 
 function reBindDialogues() {
-    $('.dialogue').off('click').on('click', function(e) {
+    $('.dialogue').off('click').on('click', function (e) {
         e.preventDefault();
         e.stopPropagation();
         mainAjaxFunc("/dialogue/get/" + $(this).attr('uuid'), "GET").then(function (result) {
@@ -106,8 +134,8 @@ function reBindDialogues() {
     });
 }
 
-function reBindFriend(){
-    $('.friend-row').off('click').on('click', function(e) {
+function reBindFriend() {
+    $('.friend-row').off('click').on('click', function (e) {
         e.preventDefault();
         e.stopPropagation();
         let uuid = $(this).attr('uuid');
@@ -119,7 +147,7 @@ function reBindFriend(){
 }
 
 function reBindMessage() {
-    $('.send-message-btn').off('click').on('click', function(e) {
+    $('.send-message-btn').off('click').on('click', function (e) {
         e.preventDefault();
         e.stopPropagation();
         mainAjaxFunc("/message/send/" + $('.main-dialogue-container').attr('uuid') + "/" + $('.text-container').val(), "GET").then(function (result) {
@@ -130,7 +158,7 @@ function reBindMessage() {
 }
 
 function reBindDialoguePartner() {
-    $('.dialogue-partner').off('click').on('click', function(e) {
+    $('.dialogue-partner').off('click').on('click', function (e) {
         e.preventDefault();
         e.stopPropagation();
         let uuid = $(this).attr('uuid');
@@ -148,13 +176,13 @@ dialogueMessageEventSource.onmessage = (event) => {
 
     if (data.dialogueId === $('.main-dialogue-container').attr('uuid')) {
         let div = $('<div>');
-        div.addClass( 'message');
+        div.addClass('message');
 
         let p = $('<p>');
         p.text(data.message);
 
         let span = $('<span>');
-        span.addClass( 'message-date');
+        span.addClass('message-date');
         span.text(data.sendTime);
 
         div.append(p);

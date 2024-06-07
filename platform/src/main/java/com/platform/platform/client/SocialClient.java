@@ -1,6 +1,5 @@
 package com.platform.platform.client;
 
-import com.platform.platform.model.dto.DialogueDTO;
 import com.platform.platform.model.dto.UserDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.ParameterizedTypeReference;
@@ -24,6 +23,14 @@ public class SocialClient implements AbstractClient {
                 HttpMethod.GET,
                 null,
                 UserDTO.class).getBody();
+    }
+
+    public List<UserDTO> getAllUsers() {
+        return restTemplate.exchange(urlBuilder(host, "/users/get-all"),
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<UserDTO>>() {
+                }).getBody();
     }
 
     public void addToFriend(String userUuid, String selfUuid) {

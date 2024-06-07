@@ -9,8 +9,10 @@ import com.platform.platform.model.dto.RegistrationDataDTO;
 import com.platform.platform.model.dto.UserDTO;
 import com.platform.platform.model.event.MessageEvent;
 import com.platform.platform.model.event.Processor;
+import com.platform.platform.util.Util;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import reactor.core.publisher.Flux;
@@ -45,6 +47,7 @@ public class Controller {
         userDetails.setSelf(true);
         model.addObject("userData", userDetails);
         model.addObject("uuid", uuid);
+        model.addObject("privileges", Util.getCurrentUserPrivileges());
         return model;
     }
 
@@ -52,17 +55,14 @@ public class Controller {
     public ModelAndView getUserPage(@PathVariable String userUuid, @CookieValue("userUuid") String uuid) {
         ModelAndView model = new ModelAndView("main-page");
         UserDTO userDetails = socialClient.getUserDetails(userUuid);
-        if (uuid.equals(userUuid)) {
-            userDetails.setSelf(true);
-        } else {
-            userDetails.setSelf(false);
-        }
+        userDetails.setSelf(uuid.equals(userUuid));
         model.addObject("userData", userDetails);
         model.addObject("isFriend", userDetails.getFriends()
                 .stream()
                 .filter(friendDTO -> friendDTO.getUuid().equals(UUID.fromString(uuid)))
                 .collect(Collectors.toSet()).isEmpty());
         model.addObject("uuid", userUuid);
+        model.addObject("privileges", Util.getCurrentUserPrivileges());
         return model;
     }
 
@@ -138,6 +138,20 @@ public class Controller {
             @CookieValue("userUuid") String selfUuid) {
         ModelAndView modelAndView = new ModelAndView("dialogues");
         modelAndView.addObject("dialogues", messengerClient.getAllDialogues(selfUuid));
+        return modelAndView;
+    }
+
+    @GetMapping("/user/delete/{userUuid}")
+    @PreAuthorize("hasAuthority('USER_DELETE')")
+    public void deleteUser(@PathVariable UUID userUuid) {
+        authClient.deleteUser(userUuid);
+    }
+
+    @GetMapping("/admin/panel")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ModelAndView getAdminPanel() {
+        ModelAndView modelAndView = new ModelAndView("admin-panel");
+        modelAndView.addObject("users", socialClient.getAllUsers());
         return modelAndView;
     }
 }

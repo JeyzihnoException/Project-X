@@ -19,8 +19,9 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.time.LocalDate;
-import java.util.Collections;
+import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 
 @Configuration
@@ -38,9 +39,14 @@ public class AuthenticationService implements AuthenticationProvider {
             HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getResponse();
             UserDetailsDTO userDetails = authClient.userAuthorization(new AuthDTO(username, password));
 
+            Set<SimpleGrantedAuthority> authorities = userDetails
+                    .getPrivileges()
+                    .stream()
+                    .map(SimpleGrantedAuthority::new)
+                    .collect(Collectors.toSet());
+            authorities.add(new SimpleGrantedAuthority("ROLE_" + userDetails.getRole()));
             UsernamePasswordAuthenticationToken authToken =
-                    new UsernamePasswordAuthenticationToken(username, password, Collections.singletonList(new SimpleGrantedAuthority(userDetails.getRole())));
-
+                    new UsernamePasswordAuthenticationToken(username, password, authorities);
             authToken.setDetails(userDetails.getUuid()); // Сохраняем UUID в Authentication
 
             // Добавляем UUID в куки

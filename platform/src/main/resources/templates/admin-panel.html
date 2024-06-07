@@ -1,0 +1,8 @@
+<div class="admin-panel">
+    <div th:each="user : ${users}" class="friend-row" th:attr="uuid=${user.getUuid()}">
+        <img src="/images/default_photo.jpg" alt="Photo" class="round-image">
+        <div class="friend-name" th:text="${user.getFirstName()} + ' ' + ${user.getSecondName()}">
+        </div>
+        <div class="delete-user-btn">Удалить пользователя</div>
+    </div>
+</div>
