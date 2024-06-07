@@ -12,5 +12,7 @@ public class RegistrationDataDTO {
     private String password;
     // Дата рождения
     private String dateOfBorn;
+    private String country;
+    private String city;
     private String gender;
 }

@@ -24,13 +24,20 @@ public class User {
     private String gender;
     private String password;
     private String role;
-    private LocalDateTime dateOfBirth;
+    private String country;
+    private String city;
+    private String dateOfBirth;
 
-    public User(String firstName, String secondName, String gender, String password, LocalDateTime dateOfBorn) {
+    public User(String firstName, String secondName, String gender, String password,
+                String country,
+                String city,
+                String dateOfBorn) {
         this.uuid = UUID.randomUUID();
         this.gender = gender;
         this.password = password;
         this.role = "USER";
+        this.country = country;
+        this.city = city;
         this.firstName = firstName;
         this.secondName = secondName;
         this.dateOfBirth = dateOfBorn;

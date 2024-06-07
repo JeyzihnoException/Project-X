@@ -3,9 +3,12 @@ package com.platform.platform.client;
 import com.platform.platform.model.dto.DialogueDTO;
 import com.platform.platform.model.dto.UserDTO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -29,6 +32,7 @@ public class SocialClient implements AbstractClient {
                 null,
                 Void.class);
     }
+
     public void deleteFromFriend(String userUuid, String selfUuid) {
         restTemplate.exchange(urlBuilder(host, "/friend/delete/" + userUuid + "/" + selfUuid),
                 HttpMethod.GET,

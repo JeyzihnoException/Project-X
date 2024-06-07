@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 @Getter
@@ -17,4 +16,6 @@ public class DialogueDTO {
     private List<UserDTO> owners;
     private String partner;
     private String partnerId;
+    private String lastMessage;
+    private String lastMessageAuthor;
 }

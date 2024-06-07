@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController()
@@ -19,8 +20,8 @@ public class Controller {
     private final MessageService messageService;
 
     @GetMapping("/dialogue/get-all/{userUuid}")
-    public void getAllDialogue(@PathVariable String userUuid) {
-
+    public ResponseEntity<List<DialogueDTO>> getAllDialogue(@PathVariable UUID userUuid) {
+        return new ResponseEntity<>(dialogueService.getAll(userUuid), HttpStatus.OK);
     }
 
     @GetMapping("/dialogue/get/{userUuid}/{selfUuid}")

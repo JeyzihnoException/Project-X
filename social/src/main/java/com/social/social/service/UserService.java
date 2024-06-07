@@ -35,9 +35,9 @@ public class UserService {
                         .collect(Collectors.toSet()))
                 .selfData(SelfDataDTO
                         .builder()
-                        .city("Moscow")
-                        .country("Russia")
-                        .dateOfBirth(Util.dateInFormat(user.getDateOfBirth()))
+                        .city(user.getCity())
+                        .country(user.getCountry())
+                        .dateOfBirth(user.getDateOfBirth())
                         .build())
                 .build();
     }

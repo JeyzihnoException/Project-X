@@ -1,10 +1,14 @@
 <div class="main-message-container">
-    <div th:each="dialogue : ${dialogues}" class="dialogue" th:attr="uuid=${dialogue.getUuid()}">
+    <div th:each="dialogue : ${dialogues}" class="dialogue" th:attr="uuid=${dialogue.getPartnerId()}">
         <div class="dialogue-photo">
             <img src="/images/default_photo.jpg">
         </div>
-        <div class="dialogue-partner" th:text="${dialogue.getUuid()}">
-
+        <div class="dialogue-content">
+            <div class="dialogue-partner" th:text="${dialogue.getPartner()}">
+            </div>
+            <div class="dialogue-last-message" th:text="${dialogue.getLastMessageAuthor() + ': ' + dialogue.getLastMessage()}">
+            </div>
         </div>
+
     </div>
 </div>

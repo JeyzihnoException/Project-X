@@ -134,9 +134,10 @@ public class Controller {
     }
 
     @GetMapping("/dialogue/get-all")
-    public void getAllDialogues(
-                            @CookieValue("userUuid") String selfUuid) {
+    public ModelAndView getAllDialogues(
+            @CookieValue("userUuid") String selfUuid) {
         ModelAndView modelAndView = new ModelAndView("dialogues");
-        modelAndView.addObject("dialogues", );
+        modelAndView.addObject("dialogues", messengerClient.getAllDialogues(selfUuid));
+        return modelAndView;
     }
 }

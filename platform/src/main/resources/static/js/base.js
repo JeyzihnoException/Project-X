@@ -82,7 +82,29 @@ $('.send-message').off('click').on('click', function(e) {
     });
 });
 
+$('.messenger').off('click').on('click', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    mainAjaxFunc("/dialogue/get-all", "GET").then(function (result) {
+        $('.self-info').html(result);
+        reBindDialogues();
+        window.history.pushState(null, "", "/dialogue");
+    });
+});
 
+
+
+function reBindDialogues() {
+    $('.dialogue').off('click').on('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        mainAjaxFunc("/dialogue/get/" + $(this).attr('uuid'), "GET").then(function (result) {
+            $('.self-info').html(result);
+            reBindMessage();
+            window.history.pushState(null, "", "/dialogue");
+        });
+    });
+}
 
 function reBindFriend(){
     $('.friend-row').off('click').on('click', function(e) {

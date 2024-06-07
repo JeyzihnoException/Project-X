@@ -25,7 +25,9 @@ public class User {
     private String gender;
     private String password;
     private String role;
-    private LocalDateTime dateOfBirth;
+    private String country;
+    private String city;
+    private String dateOfBirth;
 
     @ManyToMany
     private Set<Dialogue> dialogues = new HashSet<>();

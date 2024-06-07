@@ -24,7 +24,9 @@ public class AuthService {
                 registrationDataDTO.getSecondName(),
                 registrationDataDTO.getGender(),
                 registrationDataDTO.getPassword(),
-                LocalDateTime.now());
+                registrationDataDTO.getCountry(),
+                registrationDataDTO.getCity(),
+                registrationDataDTO.getDateOfBorn());
         userManager.save(user);
     }
 
