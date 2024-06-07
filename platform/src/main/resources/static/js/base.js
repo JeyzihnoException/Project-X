@@ -99,6 +99,7 @@ $('.admin-panel-btn').off('click').on('click', function (e) {
     mainAjaxFunc("/admin/panel", "GET").then(function (result) {
         $('.self-info').html(result);
         reBindDeleteUserBnt();
+        reBindFriend();
         // window.history.pushState(null, "", "/admin/panel");
     });
 });

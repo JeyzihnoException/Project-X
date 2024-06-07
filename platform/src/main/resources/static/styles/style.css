@@ -39,6 +39,12 @@ body {
     width: 100%;
 }
 
+.panel-delete-user {
+    height: 2vh;
+    margin-top: 15vh;
+    margin-right: 1vh;
+}
+
 .delete-user-btn {
     background-color: red;
     color: white;
