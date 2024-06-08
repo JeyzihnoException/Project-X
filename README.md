@@ -14,14 +14,14 @@
 
 ### Технологии
 
-Java 
-Spring Boot
-Thymeleaf
-JavaScript
-jQuery
-Docker
-Docker Compose
-PostgreSQL
+Java,
+Spring Boot,
+Thymeleaf,
+JavaScript,
+jQuery,
+Docker,
+Docker Compose,
+PostgreSQL.
 
 ### Запуск локально
 
