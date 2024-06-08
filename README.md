@@ -39,38 +39,3 @@ PostgreSQL
 4. Доступ к приложению:
    Платформа:  http://localhost:8081 
 * Если файл init.sql (в корневой директории сервиса platfrom) не исполнился при поднятии контейнера с БД, необходимо его запустить вручную.
-### Структура проекта
-
-social-network/
-├── platform-service/
-│   ├── src/
-│   │   └── main/
-│   │       └── java/
-│   │           └── com/
-│   │               └── example/
-│   │                   └── platform/
-│   │                       └── PlatformApplication.java
-│   ├── dockerfiles/
-│   │   └── AuthDockerfile
-│   │   └── MessageDockerfile
-│   │   └── SocialDockerfile
-│   └── docker-compose.yml 
-├── auth-service/
-│   ├── src/
-│   │   └── main/
-│   │       └── java/
-│   │           └── com/
-│   │               └── example/
-│   │                   └── auth/
-│   │                       └── AuthApplication.java
-│   └── target/
-│       └── auth-service-0.0.1-SNAPSHOT.jar
-├── message-service/
-│   ├── ...
-│   └── target/
-│       └── message-service-0.0.1-SNAPSHOT.jar
-├── social-service/
-│   ├── ...
-│   └── target/
-│       └── social-service-0.0.1-SNAPSHOT.jar
-
