@@ -22,6 +22,7 @@ public class User {
     private String firstName;
     private String secondName;
     private String gender;
+    private String salt;
     private String password;
     private String country;
     private String city;
@@ -30,7 +31,7 @@ public class User {
     @ManyToOne
     private Role role;
 
-    public User(String firstName, String secondName, String gender, String password,
+    public User(String firstName, String secondName, String gender, String password, String salt,
                 String country,
                 String city,
                 String dateOfBorn) {
@@ -39,6 +40,7 @@ public class User {
         this.password = password;
         this.country = country;
         this.city = city;
+        this.salt = salt;
         this.firstName = firstName;
         this.secondName = secondName;
         this.dateOfBirth = dateOfBorn;

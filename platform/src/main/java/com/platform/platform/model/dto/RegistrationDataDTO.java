@@ -8,7 +8,7 @@ import lombok.Setter;
 public class RegistrationDataDTO {
     private String firstName;
     private String secondName;
-    // TODO: Зашифровать
+    private String salt;
     private String password;
     // Дата рождения
     private String dateOfBorn;

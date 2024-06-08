@@ -55,9 +55,8 @@ public class AuthenticationService implements AuthenticationProvider {
             return authToken;
         } catch (Exception e) {
             logger.warn("[" + LocalDate.now() + "]" + " [WARNING] from " + Util.getRequestRemoteAddr()
-                    + " with username = " + authentication.getName() + " and password ="
-                    + authentication.getCredentials() + " /login > [AUTH] [LOGIN] [UNKNOWN USER]");
-            return null;
+                    + " with username = " + authentication.getName() + " /login > [AUTH] [LOGIN] [UNKNOWN USER]");
+            throw e;
         }
 
     }

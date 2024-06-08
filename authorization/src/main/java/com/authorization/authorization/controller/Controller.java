@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.UUID;
 
 @RestController()
@@ -26,7 +28,7 @@ public class Controller {
     }
 
     @PostMapping("/authorization")
-    public ResponseEntity<UserDetailsDTO> authorization(@RequestBody AuthDTO authDTO) {
+    public ResponseEntity<UserDetailsDTO> authorization(@RequestBody AuthDTO authDTO) throws NoSuchAlgorithmException, InvalidKeySpecException {
         return new ResponseEntity<>(authService.authorization(authDTO), HttpStatus.OK);
     }
 

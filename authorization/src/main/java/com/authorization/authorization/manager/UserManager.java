@@ -14,9 +14,6 @@ public class UserManager {
 
     private final UserRepository repository;
 
-    public boolean isUserExist(String firstName, String password) {
-        return repository.existsUserByFirstNameAndPassword(firstName, password);
-    }
 
     public void save(User user) {
         repository.save(user);
@@ -24,6 +21,10 @@ public class UserManager {
 
     public Optional<User> getByUserNameAndPassword(String firstName, String password) {
         return repository.findByFirstNameAndPassword(firstName, password);
+    }
+
+    public Optional<User> getByUserName(String userName) {
+        return repository.findUserByFirstName(userName);
     }
 
     public void delete(UUID uuid) {

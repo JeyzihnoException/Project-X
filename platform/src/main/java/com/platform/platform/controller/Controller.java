@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import reactor.core.publisher.Flux;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.UUID;
@@ -72,8 +74,10 @@ public class Controller {
     }
 
     @PostMapping("/registration")
-    public ModelAndView registration(RegistrationDataDTO registrationDataDTO) {
+    public ModelAndView registration(RegistrationDataDTO registrationDataDTO) throws NoSuchAlgorithmException, InvalidKeySpecException {
         ModelAndView modelAndView = new ModelAndView();
+        registrationDataDTO.setSalt(Util.generateSalt());
+        registrationDataDTO.setPassword(Util.hashPassword(registrationDataDTO.getPassword(), registrationDataDTO.getSalt()));
         modelAndView.addObject("result", authClient.userRegistration(registrationDataDTO));
         return modelAndView;
     }

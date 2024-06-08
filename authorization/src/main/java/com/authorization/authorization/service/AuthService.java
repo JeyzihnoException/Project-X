@@ -1,5 +1,6 @@
 package com.authorization.authorization.service;
 
+import com.authorization.authorization.exception.BadCredentialsException;
 import com.authorization.authorization.manager.RoleManager;
 import com.authorization.authorization.manager.UserManager;
 import com.authorization.authorization.model.dto.AuthDTO;
@@ -10,6 +11,9 @@ import com.authorization.authorization.model.entity.User;
 import com.authorization.authorization.util.UserUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 
 @Service
 @RequiredArgsConstructor
@@ -24,6 +28,7 @@ public class AuthService {
                 registrationDataDTO.getSecondName(),
                 registrationDataDTO.getGender(),
                 registrationDataDTO.getPassword(),
+                registrationDataDTO.getSalt(),
                 registrationDataDTO.getCountry(),
                 registrationDataDTO.getCity(),
                 registrationDataDTO.getDateOfBorn());
@@ -31,9 +36,12 @@ public class AuthService {
         userManager.save(user);
     }
 
-    public UserDetailsDTO authorization(AuthDTO authDTO) {
-        User user = userManager.getByUserNameAndPassword(authDTO.getUserName(), authDTO.getPassword())
+    public UserDetailsDTO authorization(AuthDTO authDTO) throws NoSuchAlgorithmException, InvalidKeySpecException {
+        User user = userManager.getByUserName(authDTO.getUserName())
                 .orElseThrow();
+        if (!user.getPassword().equals(UserUtil.hashPassword(authDTO.getPassword(), user.getSalt()))) {
+            throw new BadCredentialsException("Не правильный логин или пароль!");
+        }
         return UserDetailsDTO
                 .builder()
                 .role(user.getRole().getName())
