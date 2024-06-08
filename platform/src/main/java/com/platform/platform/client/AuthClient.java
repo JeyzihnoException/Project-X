@@ -15,7 +15,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class AuthClient implements AbstractClient {
 
-    private final String host = "http://localhost:8082";
+    private final String host = "http://auth-app:8082";
     private final RestTemplate restTemplate;
 
     public String userRegistration(RegistrationDataDTO registrationDataDTO) {

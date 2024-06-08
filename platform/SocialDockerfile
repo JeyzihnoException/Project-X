@@ -1,0 +1,4 @@
+FROM openjdk:17-jdk-alpine
+COPY social-0.0.1-SNAPSHOT.jar /app/
+WORKDIR /app
+CMD ["java", "-jar", "social-0.0.1-SNAPSHOT.jar"]

@@ -14,7 +14,7 @@ import java.util.List;
 public class SocialClient implements AbstractClient {
 
     //    @Value("${services.social}")
-    private String host = "http://localhost:8080";
+    private String host = "http://social-app:8080";
 
     private final RestTemplate restTemplate;
 

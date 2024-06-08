@@ -16,7 +16,7 @@ import java.util.List;
 public class MessengerClient implements AbstractClient {
 
     private final RestTemplate restTemplate;
-    private String host = "http://localhost:8083";
+    private String host = "http://msg-app:8083";
 
     public DialogueDTO getDialogue(String userUuid, String selfUuid) {
         return restTemplate.exchange(urlBuilder(host, "/dialogue/get/" + userUuid + "/" + selfUuid),

@@ -1,11 +1,47 @@
 version: '3'
 
 services:
-  postgres:
+  platform-app:
+    build:
+      context: .
+      dockerfile: PlatformDockerfile
+    container_name: platform-app
+    ports:
+      - 8081:8081
+  auth-app:
+    build:
+      context: .
+      dockerfile: AuthDockerfile
+    container_name: auth-app
+    ports:
+      - 8082:8082
+    depends_on:
+      - db
+  msg-app:
+    build:
+      context: .
+      dockerfile: MessengerDockerfile
+    container_name: msg-app
+    ports:
+      - 8083:8083
+    depends_on:
+      - db
+  social-app:
+    build:
+      context: .
+      dockerfile: SocialDockerfile
+    container_name: social-app
+    ports:
+      - 8080:8080
+    depends_on:
+      - db
+  db:
     image: 'postgres:13'
-    container_name: 'java-postgres'
+    container_name: 'db'
     ports:
       - 5432:5432
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     environment:
       - 'POSTGRES_USER=sa'
       - 'POSTGRES_HOST_AUTH_METHOD=trust'

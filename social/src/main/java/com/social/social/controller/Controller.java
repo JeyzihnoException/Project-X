@@ -53,7 +53,7 @@ public class Controller {
         return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
     }
 
-    @PostMapping("/community/create/}")
+    @PostMapping("/community/create")
     public ResponseEntity<Void> communityCreate(@RequestBody CommunityDTO communityDTO) {
         communityService.create(communityDTO);
         return new ResponseEntity<>(HttpStatus.OK);
